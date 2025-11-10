@@ -20,6 +20,14 @@
 package org.apache.guacamole;
 
 import com.google.inject.Injector;
+import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
+import io.swagger.v3.oas.integration.SwaggerConfiguration;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.servers.Server;
+import java.util.Collections;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.ws.rs.ApplicationPath;
@@ -70,6 +78,43 @@ public class GuacamoleApplication extends ResourceConfig {
 
         // Use Jackson for JSON
         register(JacksonFeature.class);
+
+        // Configure OpenAPI/Swagger documentation
+        configureOpenAPI();
+
+    }
+
+    /**
+     * Configures OpenAPI/Swagger documentation for the REST API.
+     */
+    private void configureOpenAPI() {
+
+        // Create OpenAPI definition
+        OpenAPI openAPI = new OpenAPI()
+            .info(new Info()
+                .title("Apache Guacamole REST API")
+                .version("1.6.0")
+                .description("REST API for Apache Guacamole, providing programmatic access to "
+                        + "connections, users, permissions, and remote desktop resources.")
+                .contact(new Contact()
+                    .name("Apache Guacamole")
+                    .url("https://guacamole.apache.org"))
+                .license(new License()
+                    .name("Apache License 2.0")
+                    .url("https://www.apache.org/licenses/LICENSE-2.0")))
+            .servers(Collections.singletonList(
+                new Server()
+                    .url("/guacamole/api")
+                    .description("Guacamole REST API")));
+
+        // Configure Swagger to scan REST resources
+        SwaggerConfiguration swaggerConfig = new SwaggerConfiguration()
+            .openAPI(openAPI)
+            .resourcePackages(Collections.singleton("org.apache.guacamole.rest"))
+            .prettyPrint(true);
+
+        // Register OpenAPI resource to serve openapi.json/openapi.yaml
+        register(new OpenApiResource().openApiConfiguration(swaggerConfig));
 
     }
 

@@ -40,8 +40,8 @@
         <guice.version>5.1.0</guice.version>
         <hk2.version>2.6.1</hk2.version>
         <ipaddress.version>5.5.1</ipaddress.version>
-        <jackson.version>2.19.0</jackson.version>
-        <jackson-databind.version>2.19.0</jackson-databind.version>
+        <jackson.version>2.19.2</jackson.version>
+        <jackson-databind.version>2.19.2</jackson-databind.version>
         <jersey.version>2.46</jersey.version>
         <junit.version>5.12.2</junit.version>
         <junit4.version>4.13.2</junit4.version>
@@ -411,6 +411,23 @@
                 <version>${jackson.version}</version>
             </dependency>
 
+            <!-- Additional Jackson modules (used by Swagger and other dependencies) -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                <artifactId>jackson-jaxrs-json-provider</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.jaxrs</groupId>
+                <artifactId>jackson-jaxrs-base</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
             <!-- Logging -->
             <dependency>
                 <groupId>org.slf4j</groupId>
@@ -451,6 +468,20 @@
                 <artifactId>junit</artifactId>
                 <version>${junit4.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <!-- SnakeYAML - Force higher version to resolve conflicts with swagger -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>2.4</version>
+            </dependency>
+
+            <!-- Javassist - Force higher version to resolve conflicts -->
+            <dependency>
+                <groupId>org.javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>3.30.2-GA</version>
             </dependency>
 
         </dependencies>

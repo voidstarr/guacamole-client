@@ -1,0 +1,7 @@
+io.swagger.core.v3:swagger-jaxrs2:jar:2.2.40
+io.swagger.core.v3:swagger-jaxrs2-servlet-initializer:jar:2.2.40
+io.swagger.core.v3:swagger-models:jar:2.2.40
+io.swagger.core.v3:swagger-annotations:jar:2.2.40
+io.swagger.core.v3:swagger-integration:jar:2.2.40
+io.swagger.core.v3:swagger-core:jar:2.2.40
+io.github.classgraph:classgraph:jar:4.8.184
